@@ -48,8 +48,54 @@ f_low = f_low[:NFFT//2]/NFFT
 f_band = f_band[:NFFT//2]/NFFT
 f_high = f_high[:NFFT//2]/NFFT
 
+# Vẽ tín hiệu trong miền thời gian (2x2)
+fig_time = plt.figure(figsize=(15, 10))
+fig_time.suptitle('Tín hiệu trong miền thời gian', fontsize=16)
+
+# Tín hiệu gốc
+plt.subplot(221)
+plt.plot(t, x, 'k-', linewidth=1.5, label='Tín hiệu gốc')
+plt.grid(True)
+plt.legend(loc='best')
+plt.xlabel('Thời gian (s)')
+plt.ylabel('Biên độ')
+plt.title('Tín hiệu gốc')
+
+# Tín hiệu sau lọc thông thấp
+plt.subplot(222)
+plt.plot(t, x, 'k--', label='Tín hiệu gốc')
+plt.plot(t, y_low, 'r-', linewidth=1.5, label='Sau lọc thông thấp 3Hz')
+plt.grid(True)
+plt.legend(loc='best')
+plt.xlabel('Thời gian (s)')
+plt.ylabel('Biên độ')
+plt.title('Tín hiệu sau lọc thông thấp')
+
+# Tín hiệu sau lọc thông dải
+plt.subplot(223)
+plt.plot(t, x, 'k--', label='Tín hiệu gốc')
+plt.plot(t, y_band, 'g-', linewidth=1.5, label='Sau lọc thông dải 2.5-6Hz')
+plt.grid(True)
+plt.legend(loc='best')
+plt.xlabel('Thời gian (s)')
+plt.ylabel('Biên độ')
+plt.title('Tín hiệu sau lọc thông dải')
+
+# Tín hiệu sau lọc thông cao
+plt.subplot(224)
+plt.plot(t, x, 'k--', label='Tín hiệu gốc')
+plt.plot(t, y_high, 'b-', linewidth=1.5, label='Sau lọc thông cao 8Hz')
+plt.grid(True)
+plt.legend(loc='best')
+plt.xlabel('Thời gian (s)')
+plt.ylabel('Biên độ')
+plt.title('Tín hiệu sau lọc thông cao')
+
+plt.tight_layout()
+
 # Vẽ đáp ứng tần số của bộ lọc
-plt.figure(figsize=(15, 10))
+fig_freq = plt.figure(figsize=(15, 10))
+fig_freq.suptitle('Đáp ứng tần số của bộ lọc', fontsize=16)
 
 # Đáp ứng biên độ của bộ lọc (dB)
 plt.subplot(211)
@@ -81,7 +127,8 @@ plt.ylim(-80, 0)
 plt.tight_layout()
 
 # Vẽ chi tiết phổ tần số trong các dải quan tâm
-plt.figure(figsize=(15, 10))
+fig_detail = plt.figure(figsize=(15, 10))
+fig_detail.suptitle('Chi tiết phổ tần số trong các dải quan tâm', fontsize=16)
 
 # Chi tiết dải thông thấp
 plt.subplot(311)
@@ -120,4 +167,10 @@ plt.xlim(7, 12)
 plt.ylim(-80, 0)
 
 plt.tight_layout()
+
+# Lưu các hình
+fig_time.savefig('time_domain_signals.png', dpi=300, bbox_inches='tight')
+fig_freq.savefig('frequency_response.png', dpi=300, bbox_inches='tight')
+fig_detail.savefig('frequency_detail.png', dpi=300, bbox_inches='tight')
+
 plt.show()
