@@ -38,4 +38,5 @@ plt.title('Phổ tần số của tín hiệu')
 plt.legend()
 
 plt.tight_layout()
+plt.savefig('signal_analysis.png', dpi=300, bbox_inches='tight')
 plt.show() 
